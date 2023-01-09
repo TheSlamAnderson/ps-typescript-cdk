@@ -1,8 +1,8 @@
 {
-  "name": "ps-typescript-cdk",
+  "name": "typescript-cdk",
   "version": "0.1.0",
   "bin": {
-    "ps-typescript-cdk": "bin/ps-typescript-cdk.js"
+    "typescript-cdk": "bin/typescript-cdk.js"
   },
   "scripts": {
     "build": "tsc",
