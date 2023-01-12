@@ -21,9 +21,9 @@ export class Networking extends cdk.Construct {
           cidrMask: 24,
         },
         {
-          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
-          name: 'Private',
           cidrMask: 24,
+          name: 'Private',
+          subnetType: ec2.SubnetType.PRIVATE_ISOLATED,
         },
       ],
     });
