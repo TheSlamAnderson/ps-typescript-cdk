@@ -12,6 +12,8 @@ interface DocumentManagementAPIProps {
 }
 
 export class DocumentManagementAPI extends cdk.Construct {
+  public readonly httpApi: apigw.HttpApi;
+
   constructor(scope: cdk.Construct, id: string, props: DocumentManagementAPIProps) {
     super(scope, id);
 
@@ -37,7 +39,7 @@ export class DocumentManagementAPI extends cdk.Construct {
     bucketContainerPermissions.addActions('s3:ListBucket');
     getDocumentsFunction.addToRolePolicy(bucketContainerPermissions);
 
-    const httpApi = new apigw.HttpApi(this, 'HttpAPI', {
+    this.httpApi = new apigw.HttpApi(this, 'HttpAPI', {
       apiName: 'document-management-api',
       createDefaultStage: true,
       corsPreflight: {
@@ -53,14 +55,14 @@ export class DocumentManagementAPI extends cdk.Construct {
       {},
     );
 
-    httpApi.addRoutes({
+    this.httpApi.addRoutes({
       path: '/getDocuments',
       methods: [apigw.HttpMethod.GET],
       integration: integration,
     });
 
     new cdk.CfnOutput(this, 'APIEndpoint', {
-      value: httpApi.url!,
+      value: this.httpApi.url!,
       exportName: 'APIEndpoint',
     });
   }
